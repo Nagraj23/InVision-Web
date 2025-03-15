@@ -86,31 +86,31 @@ export default function Chat() {
       </nav>
 
       {/* Chat Container */}
-      <main className="flex-1 flex flex-col max-w-full md:max-w-5xl mx-auto w-full px-4 md:px-6 py-2 relative">
+      <main className="flex-1 flex flex-col max-w-full md:max-w-5xl mx-auto w-full px-4 md:px-6 pt-8 pb-0 relative">
+  <div
+    ref={chatContainerRef}
+    className="flex-1 flex flex-col p-4 pt-10 rounded-lg overflow-y-auto w-full max-h-[75vh] min-h-[63vh] no-scrollbar"
+  >
+    {messages.map((msg, index) => (
+      <div key={index} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
         <div
-          ref={chatContainerRef}
-          className="flex-1 flex flex-col space-y-2 p-4 rounded-lg overflow-y-auto w-full max-h-[70vh] min-h-[70vh] no-scrollbar"
+          className={`p-3 max-w-[80%] md:max-w-[60%] break-words rounded-lg shadow text-xs md:text-sm ${
+            msg.sender === "user"
+              ? "bg-gray-300 text-black rounded-br-none"
+              : "bg-gray-100 text-black rounded-bl-none"
+          }`}
         >
-          {messages.map((msg, index) => (
-            <div key={index} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
-              <div
-                className={`p-3 max-w-[80%] md:max-w-[60%] break-words rounded-lg shadow text-xs md:text-sm ${
-                  msg.sender === "user"
-                    ? "bg-gray-300 text-black rounded-br-none"
-                    : "bg-gray-100 text-black rounded-bl-none"
-                }`}
-              >
-                {typeof msg.text === "string" ? <p>{msg.text}</p> : msg.text}
-              </div>
-            </div>
-          ))}
-
-          {loading && (
-            <div className="flex justify-start">
-              <p className="p-3 bg-gray-100 text-black rounded-lg italic text-xs md:text-sm">🤖 AI is thinking...</p>
-            </div>
-          )}
+          {typeof msg.text === "string" ? <p>{msg.text}</p> : msg.text}
         </div>
+      </div>
+    ))}
+
+    {loading && (
+      <div className="flex justify-start">
+        <p className="p-3 bg-gray-100 text-black rounded-lg italic text-xs md:text-sm">🤖 AI is thinking...</p>
+      </div>
+    )}
+  </div>
 
         {/* Input Box (Fixed to Bottom) */}
         <div className="absolute bottom-0 left-0 w-full bg-gray-100 shadow-md p-2 flex items-center">
